@@ -1,15 +1,11 @@
 import Link from 'next/link'
-import { sanityFetch } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/live";
 import { POSTS_QUERY } from '@/sanity/lib/queries'
 
-
-
 export default async function Page() {
-  // const posts = await sanityFetch({query: POSTS_QUERY});
-
-  const posts = await sanityFetch({
-    query: POSTS_QUERY, 
-    revalidate: 3600,
+  const { data: posts } = await sanityFetch({
+    query: POSTS_QUERY,
+    tags: ['post', 'author', 'category'],
   })
 
   return (
